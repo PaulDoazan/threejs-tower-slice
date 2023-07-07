@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  #main-canvas {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+
+  .info-container {
+    position: absolute;
+    width: 100vw;
+    display: flex;
+    justify-content: end;
+  }
+
+  .score {
+    user-select: none;
+    margin: 0.5em 1em;
+    font-size: 120px;
+    color: white;
+  }
