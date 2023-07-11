@@ -85,10 +85,10 @@ function addLayer(x: number, z: number, width: number, depth: number, direction:
     stack.push(layer)
 }
 
-function generateBox(x: number, y: number, z: number, width: number, depth: number) {
+function generateBox(x: number, y: number, z: number, width: number, depth: number, isOverhang = false) {
     // ThreeJS
     const geometry = new THREE.BoxGeometry(width, boxHeight, depth)
-    const lastIndex = gameEnded ? stack.length - 1 : stack.length
+    const lastIndex = gameEnded || isOverhang ? stack.length - 1 : stack.length
     const color = new THREE.Color(`hsl(${30 + lastIndex * 4}, 100%, 50%)`)
     const material = new THREE.MeshLambertMaterial({ color })
     const mesh = new THREE.Mesh(geometry, material)
@@ -179,7 +179,7 @@ function missedTheSpot() {
         topLayer.threejs.position.x,
         topLayer.threejs.position.z,
         topLayer.width,
-        topLayer.depth
+        topLayer.depth,
     );
     world.removeBody(topLayer.cannonjs);
     scene.remove(topLayer.threejs);
@@ -194,7 +194,7 @@ function missedTheSpot() {
         let index = getRandomIntInclusive(0, quotes.win.length - 1)
         commentElement.innerHTML = `
             <div class='quote'>"${quotes.win[index].quote}"</div>
-            <div class='author'> - ${quotes.win[index].author}</div>
+            <div class='author'>${quotes.win[index].author}</div>
             `
         bestScoreElement.innerText = `Best : ${(stack.length - 2).toString()}`
         bestScore = stack.length - 2
@@ -203,14 +203,14 @@ function missedTheSpot() {
         let index = getRandomIntInclusive(0, quotes.equal.length - 1)
         commentElement.innerHTML = `
             <div class='quote'>"${quotes.equal[index].quote}"</div>
-            <div class='author'> - ${quotes.equal[index].author}</div>
+            <div class='author'>${quotes.equal[index].author}</div>
         `
     } else {
         // lose
         let index = getRandomIntInclusive(0, quotes.fail.length - 1)
         commentElement.innerHTML = `
             <div class='quote'>"${quotes.fail[index].quote}"</div>
-            <div class='author'> - ${quotes.fail[index].author}</div>
+            <div class='author'>${quotes.fail[index].author}</div>
         `
     }
 
@@ -220,7 +220,7 @@ function missedTheSpot() {
 
 function addOverhang(x: number, z: number, width: number, depth: number) {
     const y = boxHeight * (stack.length - 1)
-    const overhang = generateBox(x, y, z, width, depth)
+    const overhang = generateBox(x, y, z, width, depth, true)
     overhangs.push(overhang)
 }
 
