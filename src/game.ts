@@ -1,8 +1,10 @@
 import * as THREE from "three";
 import * as CANNON from "cannon-es";
-import "./style.css"
+import quotes from "./quotes.json"
+import "../assets/style.css"
 
-const resultElement = document.querySelector('.result') as HTMLInputElement;
+const bestScoreElement = document.querySelector('.best-score') as HTMLInputElement;
+const commentElement = document.querySelector('.comment') as HTMLInputElement;
 const scoreElement = document.querySelector('.score') as HTMLInputElement;
 
 type Layer = { threejs: THREE.Mesh, cannonjs: CANNON.Body, width: number, depth: number, direction: string }
@@ -19,12 +21,15 @@ let falls = true
 let gameEnded = false
 let forwardX: number
 let forwardZ: number
+let bestScore: number
 
 init();
 
 function init() {
+    console.log(quotes)
     forwardX = 1
     forwardZ = 1
+    bestScore = -1
 
     // Create physics engine
     world = new CANNON.World()
@@ -163,6 +168,9 @@ window.addEventListener('pointerdown', () => {
 })
 
 function missedTheSpot() {
+    commentElement.style.transition = 'opacity 1s'
+    bestScoreElement.style.transition = 'opacity 1s'
+
     const topLayer = stack[stack.length - 1];
 
     gameEnded = true;
@@ -176,8 +184,38 @@ function missedTheSpot() {
     world.removeBody(topLayer.cannonjs);
     scene.remove(topLayer.threejs);
 
+    bestScoreElement.style.opacity = '1'
+    if (bestScore === -1 && stack.length - 2 === 0) {
+        commentElement.innerHTML = `<div class='quote'>"Il y a un début à tout !"</div>`
+        bestScoreElement.innerText = `Best : ${(stack.length - 2).toString()}`
+        bestScore = stack.length - 2
+    } else if (stack.length - 2 > bestScore) {
+        // win
+        let index = getRandomIntInclusive(0, quotes.win.length - 1)
+        commentElement.innerHTML = `
+            <div class='quote'>"${quotes.win[index].quote}"</div>
+            <div class='author'> - ${quotes.win[index].author}</div>
+            `
+        bestScoreElement.innerText = `Best : ${(stack.length - 2).toString()}`
+        bestScore = stack.length - 2
+    } else if (stack.length - 2 === bestScore) {
+        // same
+        let index = getRandomIntInclusive(0, quotes.equal.length - 1)
+        commentElement.innerHTML = `
+            <div class='quote'>"${quotes.equal[index].quote}"</div>
+            <div class='author'> - ${quotes.equal[index].author}</div>
+        `
+    } else {
+        // lose
+        let index = getRandomIntInclusive(0, quotes.fail.length - 1)
+        commentElement.innerHTML = `
+            <div class='quote'>"${quotes.fail[index].quote}"</div>
+            <div class='author'> - ${quotes.fail[index].author}</div>
+        `
+    }
 
-    // resultElement.style.display = 'flex'
+    commentElement.style.opacity = '1'
+
 }
 
 function addOverhang(x: number, z: number, width: number, depth: number) {
@@ -260,8 +298,8 @@ function startGame() {
     stack = [];
     overhangs = [];
 
-    if (resultElement) resultElement.style.display = "none";
-    if (scoreElement) scoreElement.innerText = '0';
+    scoreElement.innerText = '0';
+    commentElement.style.opacity = '0'
 
     if (world) {
         // Remove every object from world
@@ -304,3 +342,9 @@ window.addEventListener("resize", () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.render(scene, camera);
 });
+
+function getRandomIntInclusive(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}

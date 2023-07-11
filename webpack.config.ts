@@ -14,7 +14,6 @@ export default {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist/'
     },
     resolve: {
         extensions: ['.ts', '.js']
@@ -27,11 +26,11 @@ export default {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
+                test: /\.css$/i,
                 use: [
                     'style-loader',
                     'css-loader'
-                ]
+                ],
             },
         ]
     },

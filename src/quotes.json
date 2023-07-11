@@ -1,0 +1,68 @@
+{
+    "fail": [
+        {
+            "quote": "Je ne perds jamais, soit je gagne, soit j'apprends.",
+            "author": "Nelson Mandela"
+        },
+        {
+            "quote": "Les échecs fortifient les forts.",
+            "author": "Antoine de Saint-Exupéry"
+        },
+        {
+            "quote": "La plus grande gloire n'est pas de ne jamais tomber, mais de se relever à chaque chute.",
+            "author": "Confucius"
+        },
+        {
+            "quote": "Il n'y a qu'une façon d'échouer : c'est abandonner avant d'avoir réussi.",
+            "author": "Georges Clémenceau"
+        },
+        {
+            "quote": "Certaines personnes jouent aux échecs, d’autres les collectionnent.",
+            "author": "Pierre Dac"
+        },
+        {
+            "quote": "L'intelligent.e se remet vite d'un échec. L'imbécile ne se remet jamais d'un succès.",
+            "author": "Paul Fort"
+        }
+    ],
+    "equal": [
+        {
+            "quote": "On ne se baigne jamais deux fois dans le même fleuve.",
+            "author": "Héraclite"
+        },
+        {
+            "quote": "L'espoir est contagieux, comme le rire.",
+            "author": "Joan Baez"
+        },
+        {
+            "quote": "Le manque d'humour est l'impolitesse de l'espoir.",
+            "author": "Anonyme"
+        }
+    ],
+    "win": [
+        {
+            "quote": "Le succès, c'est l'échec de l'échec.",
+            "author": "Delphine Lamotte"
+        },
+        {
+            "quote": "La victoire sur soi est la plus grande des victoires.",
+            "author": "Platon"
+        },
+        {
+            "quote": "Un instant de patience est déjà une victoire.",
+            "author": "Abi Taleb"
+        },
+        {
+            "quote": "Les hommes parlent de la victoire comme d’une chance. C’est le travail qui fait la victoire.",
+            "author": "Ralph Waldo Emerson"
+        },
+        {
+            "quote": "Getting better never stops.",
+            "author": "All Blacks"
+        },
+        {
+            "quote": "Il n'y a rien de noble à être supérieur à vos semblables. La vraie noblesse est d'être supérieur à celui que vous avez été auparavant.",
+            "author": "Ernest Hemingway"
+        }
+    ]
+}
