@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import * as CANNON from "cannon-es";
+import "./style.css"
 
 const resultElement = document.querySelector('.result') as HTMLInputElement;
 const scoreElement = document.querySelector('.score') as HTMLInputElement;
@@ -10,8 +11,8 @@ let world: CANNON.World
 let camera: THREE.OrthographicCamera
 let renderer: THREE.WebGLRenderer
 let scene: THREE.Scene
-const originalBoxSize = 3
-const boxHeight = 1
+let originalBoxSize = 3
+let boxHeight = 1
 let stack: Layer[] = []
 let overhangs: Layer[] = []
 let falls = true

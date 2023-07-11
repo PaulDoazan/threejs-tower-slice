@@ -1,4 +1,5 @@
 import * as path from 'path'
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 export default {
     mode: 'development',
@@ -26,12 +27,23 @@ export default {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
             },
         ]
     },
     watchOptions: {
         ignored: /node_modules/
-    }
+    },
+    plugins: [
+        // Make an index.html from the template
+        new HtmlWebpackPlugin({
+            template: './index.html',
+            hash: true,
+            minify: false
+        })
+    ]
 }
